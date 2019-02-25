@@ -1,0 +1,61 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>My Tasks</title>
+<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+
+<body style="height: 1080px;  
+	background: linear-gradient(to top left, powderblue, pink);font-family: Georgia, 'Times New Roman', Times, serif">
+<main style="width: 450px; margin: 0 auto" >
+	<h1 class="working" style="font-size: 50pt; font-style: italic; margin: 70px auto; width: 350px;">My tasks</h1>
+	<form action="/task" method="post" style="width: 390px; margin: 0 auto;">
+        <label style="padding-right: 40px">Task name:</label>
+        <input type="text" name="taskName" value="task" style="float: right;" required/>
+        <br><br>
+		<label style="float: left;">Date:</label>
+		<input type="date" name="taskDate" value="2019-10-02" style="float: right;" required/>
+		<br><br>
+		<label style="padding-right: 20px">Attached files:</label>
+		<input type="file" name="taskFile" style="float: right;"/>
+		<br><br>
+        <input type="submit" value="Submit"  />
+    </form><br>
+	<table style="min-width: 400px; padding-left: 30px">
+	<% for(var i = 0; i < array.length; i++) {%>
+		<% if(array[i].cheked == "true") {%>
+			<tr class="chekedTask" style="background-color: #4FE147; margin-left: 50px;">
+			<td><%=array[i].name%></td>		
+			<td><%=array[i].date%></td>
+			<td><%=array[i].file%></td>
+			<td>
+				<form action="/ready" method="post">
+				<input type="hidden" name="index" value="<%=i%>"/>
+				<input type="submit" value="not ready"/>
+				</form>
+			</td>
+			<%} else {%>
+			<tr class="unchekedTask" style="background-color: #DA2525; margin-left: 25px;">
+			<td><%=array[i].name%></td>		
+			<td><%=array[i].date%></td>
+			<td><%=array[i].file%></td>
+			<td>
+				<form action="/ready" method="post">
+				<input type="hidden" name="index" value="<%=i%>"/>
+				<input type="submit" value="ready"/>
+				</form>
+			</td>
+			<%} %>
+			<td>
+				<form action="/del" method="post">
+				<input type="hidden" name="index" value="<%=i%>"/>
+				<input type="submit" value="delete"/>
+				</form>
+			</td>
+		</tr>
+	<%} %>
+	</table>
+</main>
+</body>
+</html>
